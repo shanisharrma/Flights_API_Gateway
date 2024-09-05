@@ -1,12 +1,21 @@
 const express = require("express");
 const { UserController } = require("../../controllers");
+const { AuthRequestMiddleware } = require("../../middlewares");
 
 const router = express.Router();
 
 // /api/v1/signup POST
-router.post("/signup", UserController.signup);
+router.post(
+  "/signup",
+  AuthRequestMiddleware.validateAuthRequest,
+  UserController.signup
+);
 
 // /api/v1/signin POST
-router.post("/signin", UserController.signin);
+router.post(
+  "/signin",
+  AuthRequestMiddleware.validateAuthRequest,
+  UserController.signin
+);
 
 module.exports = router;
