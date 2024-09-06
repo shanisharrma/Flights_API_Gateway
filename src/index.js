@@ -5,6 +5,8 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const { ServerConfig, Logger } = require("./config");
 const apiRoutes = require("./routes");
 
+const { User, Role } = require("./models");
+
 const app = express();
 
 const limiter = rateLimit({
