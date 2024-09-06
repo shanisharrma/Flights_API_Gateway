@@ -5,6 +5,13 @@ const SEAT_TYPE = {
   FIRST_CLASS: "first_class",
 };
 
+const USER_ROLES = {
+  ADMIN: "admin",
+  CUSTOMER: "customer",
+  FLIGHT_COMPANY: "flight_company",
+};
+
 module.exports = {
   SEAT_TYPE,
+  USER_ROLES,
 };
