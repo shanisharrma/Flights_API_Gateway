@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const { ErrorResponse } = require("../utils/common");
 const AppError = require("../utils/errors/app-error");
 const { UserService } = require("../services");
+const { response } = require("express");
 
 function validateAuthRequest(req, res, next) {
   if (!req.body.email) {
@@ -35,7 +36,22 @@ async function checkAuth(req, res, next) {
   }
 }
 
+async function isAdmin(req, res, next) {
+  try {
+    const response = await UserService.isAdmin(req.user);
+    if (!response) {
+      return res
+        .status(StatusCodes.UNAUTHORIZED)
+        .json({ message: "User not authorized for this action." });
+    }
+    next();
+  } catch (error) {
+    return res.status(error.statusCode).json(error);
+  }
+}
+
 module.exports = {
   validateAuthRequest,
   checkAuth,
+  isAdmin,
 };
